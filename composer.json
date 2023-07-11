@@ -1,0 +1,13 @@
+{
+  "autoload": {
+    "psr-4": {
+      "Models\\": "src/models/",
+      "Controllers\\": "src/controllers/",
+      "Libraries\\": "src/libraries/",
+      "Elements\\": "src/elements/"
+    }
+  },
+  "require": {
+    "doctrine/dbal": "^3.6"
+  }
+}
