@@ -10,10 +10,10 @@ define('APPROOT', dirname(__FILE__, 2));
 
 //URLROOT (Dynamic links)
 //here is where you specify your website url
-const URLROOT = 'http://www.shesh.com';
+const URLROOT = 'http://www.urenreg.com';
 
 //Sitename
-const SITENAME = 'phprox';
+const SITENAME = 'Uren registratie';
 
 //timezone
 const DTZ = new DateTimeZone('Europe/Amsterdam');

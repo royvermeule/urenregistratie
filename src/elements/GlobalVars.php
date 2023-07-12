@@ -48,7 +48,8 @@ class GlobalVars
       'urlroot' => URLROOT,
       'approot' => APPROOT,
       '__DIR' => __DIR__,
-      '__FILE' => __FILE__
+      '__FILE' => __FILE__,
+      'sitename' => SITENAME
     ];
 
     if ($this->data) {
