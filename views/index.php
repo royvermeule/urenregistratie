@@ -16,43 +16,11 @@ $html = '<!doctype html>
     <div class="main__container">
         <div class="app__container">
             <div class="option__menu">
-                <label for="weken">Kies een week</label>
-                <a href=""><button class="weken__button">Vorrige</button></a>
-                <select id="weken" name="">
-                    <option value="">Week1</option>
-                </select>
-                <a href=""><button class="weken__button">Volgende</button></a>
-                <a class="velden__button--link" href=""><button class="velden__button">Maak week leeg</button></a>
+                <label for="velden__button--link">Uren registratie</label>
+                <a id="velden__button--link" class="velden__button--link" href=""><button class="velden__button">Maak week leeg</button></a>
             </div>
             <div class="dagen">
-                <div class="dag">
-                    <h3>Maandag</h3>
-                    <a class="edit__button--link" href="dag.php?dag=Maandag"><button class="edit__button">{dayButtonName}</button></a>
-                </div>
-                <div class="dag">
-                    <h3>Dinsdag</h3>
-                    <a class="edit__button--link" href="dag.php?dag=Dinsdag"><button class="edit__button">{dayButtonName}</button></a>
-                </div>
-                <div class="dag">
-                    <h3>Woensdag</h3>
-                    <a class="edit__button--link" href="dag.php?dag=Woensdag"><button class="edit__button">{dayButtonName}</button></a>
-                </div>
-                <div class="dag">
-                    <h3>Donderdag</h3>
-                    <a class="edit__button--link" href="dag.php?dag=Donderdag"><button class="edit__button">{dayButtonName}</button></a>
-                </div>
-                <div class="dag">
-                    <h3>Vrijdag</h3>
-                    <a class="edit__button--link" href="dag.php?dag=Vrijdag"><button class="edit__button">{dayButtonName}</button></a>
-                </div>
-                <div class="dag">
-                    <h3>Zaterdag</h3>
-                    <a class="edit__button--link" href="dag.php?dag=Zaterdag"><button class="edit__button">{dayButtonName}</button></a>
-                </div>
-                <div class="dag">
-                    <h3>Zondag</h3>
-                    <a class="edit__button--link" href="dag.php?dag=Zondag"><button class="edit__button">{dayButtonName}</button></a>
-                </div>
+                {dagen}
                 <div class="generate">
                     <a href=""><button class="generate__button">Genereer week rapport</button></a>
                 </div>
@@ -62,9 +30,11 @@ $html = '<!doctype html>
 </body>
 </html>';
 
+$dagController = new \Controllers\DagController();
+
 $pageFilter = new \Elements\PageFilter($html);
 $pageFilter->addGlobalVars([
-  'dayButtonName' => 'Bekijk'
+  'dagen' => $dagController->getDagen()
 ]);
 echo $pageFilter->filter();
 

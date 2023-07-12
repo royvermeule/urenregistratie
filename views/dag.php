@@ -19,18 +19,7 @@ $html = '<!doctype html>
         <h2 class="dag__titel">{dag}</h2>
             <a href="" class="taak__toevoegen--link"><button class="taak__toevoegen">Voeg een taak toe </button></a>
             <div class="taken__collectie">
-                <div class="taken__collectie--item">
-                    <div class="taak__header">
-                        <h3 class="taak__titel">Taak titel</h3>
-                        <a href="" class="taak__aanpas--link"><button class="taak__aanpas">Aanpasssen</button></a>
-                        <a href="" class="taak__verwijder--link"><button class="taak__verwijder">Verwijderen</button></a>
-                    </div>
-                    <div class="taak__body">
-                      <p>
-                          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet excepturi impedit quas vero vitae! Accusantium asperiores aspernatur consequuntur culpa eos illum in ipsa, nesciunt optio perspiciatis porro quidem reprehenderit, voluptas!
-                      </p>
-                    </div>
-                </div>
+                {taken}
             </div>
         </div>
     </div>
@@ -38,7 +27,9 @@ $html = '<!doctype html>
 </html>';
 
 $pageFilter = new \Elements\PageFilter($html);
+$dagController = new \Controllers\DagController();
 $pageFilter->addGlobalVars([
-  'dag' => $_GET['dag']
+  'dag' => $_GET['dag'],
+  'taken' => $dagController->getTakenByDagId($_GET['dagId'])
 ]);
 echo $pageFilter->filter();
