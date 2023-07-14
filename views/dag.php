@@ -11,57 +11,31 @@ $html = '<!doctype html>
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <link rel="stylesheet" href="./styles/style.css">
   <title>{sitename} - {dag}</title>
-  <script>
-    function handleVerwijderSubmission() {
-        var form = document.getElementById("verwijderTaak");
-        form.addEventListener("submit", function(event) {
-          event.preventDefault();
-    
-          var formData = new FormData(form);
-          var xhr = new XMLHttpRequest();
-          xhr.open("POST", "verwijdertaak.php", true);
-          xhr.onreadystatechange = function() {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-              if (xhr.status === 200) {
-                console.log("Verwijder form submitted successfully.");
-              } else {
-                console.error("Error in handleVerwijderSubmission xhr.status: " + xhr.status);
-              }
-            }
-          };
-          xhr.send(formData);
-          window.location.reload()
-        });
-      }
-      
-    function handleBewerkSubmission() {
-        var form = document.getElementById("taakBewerkSave");
-        form.addEventListener("submit", function(event) {
-          event.preventDefault();
-          
-          var formData = new FormData(form);
-          var xhr = new XMLHttpRequest();
-          xhr.open("POST", "bewerktaak.php", true);
-          xhr.onreadystatechange = function() {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-              if (xhr.status === 200) {
-                console.log("Bewerk form submitted succesfully.");
-              } else {
-                console.log("Error in handleVerwijderSubmission xhr.status: " + xhr.status);
-              }
-            }
-          };
-          xhr.send(formData);
-          window.location.reload();
-        });
-    }
-</script>
+  <script src="js/PostRequests.js"></script>
 </head>
 <body>
     <div class="main__container">
         <div class="app__container">
         <h2 class="dag__titel">{dag}</h2>
-            <a href="" class="taak__toevoegen--link"><button class="taak__toevoegen">Voeg een taak toe </button></a>
+            <button id="createTaak" class="taak__toevoegen">Toevoegen</button>
+              <script>
+                  document.getElementById("createTaak").addEventListener("click", function() {
+                  var dagId = '.$_GET['dagId'].';
+                  
+                  var xhr = new XMLHttpRequest();
+                  xhr.open("POST", "createtaakform.php", true);
+                  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                  xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                      var taakBewerkForm = document.getElementById("optieResponse");
+                      taakBewerkForm.innerHTML = xhr.responseText;
+                      handleCreateSubmission();
+                    }
+                  };
+                  var data = "dagId=" + encodeURIComponent(dagId);
+                  xhr.send(data);
+                });
+              </script>
             <div class="taken__collectie">
             <div id="optieResponse"></div>
                 {taken}

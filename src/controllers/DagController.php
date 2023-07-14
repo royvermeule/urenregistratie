@@ -79,7 +79,8 @@ class DagController
           });
             
           document.getElementById('bewerkTaak').addEventListener('click', function() {
-            var taakId = {$taak['taa_id']}
+            var taakId = \"{$taak['taa_id']}\";
+            var dag = \"{$dagNaam}\";
             
             var xhr = new XMLHttpRequest();
             xhr.open('POST', 'bewerktaakform.php', true);
@@ -91,8 +92,9 @@ class DagController
                 handleBewerkSubmission();
               }
             };
-            var data = 'taakId=' + encodeURIComponent(taakId);
-            xhr.send(data);
+            var data = \"taakId=\" + encodeURIComponent(taakId) +
+               \"&dag=\" + encodeURIComponent(dag);
+              xhr.send(data);
           });
     </script>
 </div>";

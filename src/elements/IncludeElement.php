@@ -35,8 +35,8 @@ class IncludeElement
 
           if (isset($attributes['file'])) {
             $file = $attributes['file'];
-            if (file_exists('' . APPROOT . '/' . $file . '.php')) {
-              return file_get_contents('' . APPROOT . '/' . $file . '.php');
+            if (file_exists('' . APPROOT . '/' . $file . '')) {
+              return file_get_contents('' . APPROOT . '/' . $file . '');
             } else {
               echo "$file cannot be found";
             }
