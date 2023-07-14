@@ -18,17 +18,38 @@ class DagController
     $this->taakModel = new TaakModel();
   }
 
+  /**
+   * @return string
+   */
   public function getDagen(): string
   {
     $dagen = $this->dagModel->getDagen();
-
     $dHtml = '';
+
     foreach ($dagen as $dag) {
+      $dagId = $dag['dag_id'];
+
+      $taken = $this->taakModel->getTakenByDagId($dagId);
+
+      $taakIcoonData = '';
+      foreach ($taken as $taak) {
+        $taakId = $taak['taa_id'];
+        $taakNaam = $taak['taa_naam'];
+        $taakDuur = $taak['taa_tijd'];
+
+        $taakIcoonData .= "<div class='taak__icoon'>
+                            <div class='taak__icoon--naam'>$taakNaam</div>
+                            <div class='taak__icoon--uren'>$taakDuur uur</div>
+                          </div>";
+      }
+
       $dHtml .= "<div class='dag'>
-                    <h3>{$dag['dag_naam']}</h3>
-                    <a class='edit__button--link' href='dag.php?dag={$dag['dag_naam']}&dagId={$dag['dag_id']}'><button class='edit__button'>Bekijk</button></a>
+                  <h3>{$dag['dag_naam']}</h3>
+                  $taakIcoonData
+                  <a class='edit__button--link' href='dag.php?dag={$dag['dag_naam']}&dagId={$dag['dag_id']}'><button class='edit__button'>Bekijk</button></a>
                 </div>";
     }
+
     return $dHtml;
   }
 

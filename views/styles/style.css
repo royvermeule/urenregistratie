@@ -153,6 +153,7 @@ body {
 .taak__toevoegen {
   background-color: #f4d9a6;
   color: white;
+  margin: 10px;
 }
 
 .taak__toevoegen--link, .dag__titel {
@@ -175,5 +176,25 @@ body {
   font-size: 25px;
   padding-right: 3rem;
   width: 10rem;
+}
+
+.taak__icoon {
+  height: 18px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  background-color: grey;
+  color: white;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: 1rem;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: 1px solid grey;
+}
+
+.taak__icoon--naam {
+  padding-right: 10px;
+  border-right: 2px dotted white;
 }
 
