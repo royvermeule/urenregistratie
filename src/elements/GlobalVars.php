@@ -11,6 +11,7 @@ class GlobalVars
 
   /**
    * @param string $html
+   * @param array|null $data
    */
   public function __construct(string $html, ?array $data = null)
   {

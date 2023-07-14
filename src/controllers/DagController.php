@@ -36,27 +36,68 @@ class DagController
    * @param int $dagId
    * @return string
    */
-  public function getTakenByDagId(int $dagId): string
+  public function getTakenByDagId(int $dagId, string $dagNaam): string
   {
     $taken = $this->taakModel->getTakenByDagId($dagId);
 
     $dHtml = '';
     foreach ($taken as $taak) {
-      $dHtml .= "<div class='taken__collectie--item'>
-                    <div class='taak__header'>
-                        <h3 class='taak__titel'>{$taak['taa_naam']}</h3>
-                        <a href='taak.php?taak={$taak['taa_naam']}&taakId={$taak['taa_id']}' class='taak__aanpas--link'><button class='taak__aanpas'>Aanpasssen</button></a>
-                        <a href='taak.php?taak={$taak['taa_naam']}&taakId={$taak['taa_id']}' class='taak__verwijder--link'><button class='taak__verwijder'>Verwijderen</button></a>
-                    </div>
-                    <div class='taak__body'>
-                      <p class='taak__omschrijving'>
-                         {$taak['taa_omschrijving']}
-                      </p>
-                      <br>
-                      <p class='taak__tijd'> Duur: {$taak['taa_tijd']} uur.</p>
-                    </div>
-                </div>";
+      $dHtml .= "
+<div class='taken__collectie--item'>
+    <div class='taak__header'>
+        <h3 class='taak__titel'>{$taak['taa_naam']}</h3>
+        <button id='bewerkTaak' class='taak__aanpas'>Aanpassen</button>
+        <button id='verwijderTaakPopup{$taak['taa_id']}' class='taak__verwijder'>Verwijder</button>
+    </div>
+    <div class='taak__body'>
+        <p class='taak__omschrijving'>
+            {$taak['taa_omschrijving']}
+        </p>
+        <br>
+        <p class='taak__tijd'> Duur: {$taak['taa_tijd']} uur.</p>
+    </div>
+    <script>
+        document.getElementById(\"verwijderTaakPopup{$taak['taa_id']}\").addEventListener(\"click\", function() {
+          var taakId = \"{$taak['taa_id']}\";
+          var dagId = \"{$dagId}\";
+          var dag = \"$dagNaam\";
+        
+          var xhr = new XMLHttpRequest();
+          xhr.open(\"POST\", \"verwijdertaakPopup.php\", true);
+          xhr.setRequestHeader(\"Content-Type\", \"application/x-www-form-urlencoded\");
+          xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+               var taakVerwijderPopup = document.getElementById('optieResponse');
+               taakVerwijderPopup.innerHTML = xhr.responseText;
+               handleVerwijderSubmission();
+            }
+          };
+            var data = \"taakId=\" + encodeURIComponent(taakId) +
+             \"&dagId=\" + encodeURIComponent(dagId) +
+             \"&dag=\" + encodeURIComponent(dag);
+            xhr.send(data);
+          });
+            
+          document.getElementById('bewerkTaak').addEventListener('click', function() {
+            var taakId = {$taak['taa_id']}
+            
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'bewerktaakform.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onreadystatechange = function() {
+              if (xhr.readyState === 4 && xhr.status === 200) {
+                var taakBewerkForm = document.getElementById('optieResponse');
+                taakBewerkForm.innerHTML = xhr.responseText;
+                handleBewerkSubmission();
+              }
+            };
+            var data = 'taakId=' + encodeURIComponent(taakId);
+            xhr.send(data);
+          });
+    </script>
+</div>";
     }
+
     return $dHtml;
   }
 }

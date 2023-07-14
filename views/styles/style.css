@@ -163,10 +163,6 @@ body {
   font-size: 30px;
 }
 
-.taak__titel {
-  margin-left: 12px;
-}
-
 .taak__toevoegen:hover {
   background-color: #c3ad7a;
 }
@@ -177,5 +173,6 @@ body {
 
 .taak__titel {
   font-size: 25px;
-  padding: 0;
+  padding-right: 3rem;
 }
+
