@@ -193,8 +193,16 @@ body {
   border: 1px solid grey;
 }
 
+.taak__icoon:hover {
+  opacity: 80%;
+}
+
 .taak__icoon--naam {
   padding-right: 10px;
   border-right: 2px dotted white;
+}
+
+.taak__icoon--link {
+  text-decoration: none;
 }
 

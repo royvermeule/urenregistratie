@@ -37,10 +37,12 @@ class DagController
         $taakNaam = $taak['taa_naam'];
         $taakDuur = $taak['taa_tijd'];
 
-        $taakIcoonData .= "<div class='taak__icoon'>
+        $taakIcoonData .= "
+                          <a class='taak__icoon--link' href='viewtaak.php?taakId=$taakId&dag={$dag['dag_naam']}'><div class='taak__icoon'>
                             <div class='taak__icoon--naam'>$taakNaam</div>
                             <div class='taak__icoon--uren'>$taakDuur uur</div>
-                          </div>";
+                          </div></a>
+                          ";
       }
 
       $dHtml .= "<div class='dag'>
